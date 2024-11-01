@@ -1,6 +1,6 @@
 # Laporan Proyek Machine Learning - Umar sani
 
-![alt text](image-32.png)
+![alt text](/images/image-32.png)
 
 ## Project Overview
 
@@ -28,15 +28,17 @@ Sistem rekomendasi dapat memberikan rekomendasi berdasarkan preferensi pengguna,
 
 ## Data Understanding
 
-Dataset yang digunakan adalah The Movie Dataset. Dataset ini terdiri dari film-film yang dirilis pada atau sebelum Juli 2017. Dataset ini memiliki metadata 45.000 film yang terdaftar di Full MovieLens. Dataset berisi beberapa file, seperti credits, keywords, links, links_small, movies_metadata, ratings, ratings_small. 
+Dataset yang digunakan adalah The Movie Dataset. Dataset ini terdiri dari film-film yang dirilis pada atau sebelum Juli 2017. Dataset ini memiliki metadata 45.466 film yang terdaftar di Full MovieLens. Dataset ini terdiri dari beberapa file, seperti credits, keywords, links, links_small, movies_metadata, ratings, ratings_small. 
 
-Percobaan ini hanya akan menggunakan data-data yang relevan untuk sistem rekomendasi, seperti movies_metadata, credits, dan keywords.
+Percobaan ini hanya akan menggunakan data yang relevan untuk sistem rekomendasi, seperti movies_metadata, credits, dan keywords. Ketiga file tersebut akan dibaca menjadi dataframe untuk kemudian digabungkan menjadi satu. Dataset memiliki beberapa kolom yang bertipe data object dan memiliki missing value. Kondisi tersebut akan diproses pada tahap Data Preparation.
+
+Tautan Dataset: https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset
 
 ### Movies Metadata
 
-Movie Metadata berisi informasi terkait mengenai sebuah film. Dataset ini terdiri dari 24 fitur.
+Movie Metadata berisi informasi terkait mengenai sebuah film. Dataframe ini terdiri dari 45.466 baris dengan 24 fitur.
 
-![alt text](image.png)
+![alt text](/images/image.png)
 
 **Fitur-fitur:**
 
@@ -67,9 +69,9 @@ Movie Metadata berisi informasi terkait mengenai sebuah film. Dataset ini terdir
 
 ### Keywords
 
-Keywords berisi kata kunci yang terkait dengan sinopsis film.
+Keywords berisi kata kunci yang terkait dengan sinopsis film. Dataframe ini terdiri dari 46.419 baris dengan 2 fitur.
 
-![alt text](image-1.png)
+![alt text](/images/image-1.png)
 
 **Fitur-fitur:**
 - **id**: ID unik untuk setiap film.
@@ -77,9 +79,9 @@ Keywords berisi kata kunci yang terkait dengan sinopsis film.
 
 ### Crew
 
-Crew berisi daftar pemeran dan kru yang terlibat dalam produksi film.
+Crew berisi daftar pemeran dan kru yang terlibat dalam produksi film. Dataframe ini terdiri dari 45.476 baris dengan 3 fitur.
 
-![alt text](image-2.png)
+![alt text](/images/image-2.png)
 
 **Fitur-fitur:**
 - **id**: ID unik untuk setiap film.
@@ -88,112 +90,112 @@ Crew berisi daftar pemeran dan kru yang terlibat dalam produksi film.
 
 ## Data Preparation
 
-Dataset Movie, Credits, dan Crew memiliki struktur yang belum rapi. Terdapat beberapa kolom yang bertipe data object JSON. Tipe data ini perlu diubah ke format yang lebih mudah untuk diolah, seperti tipe data list. Selain itu, kita akan melakukan pengecekan nilai null dan mengisinya dengan nilai lain yang sesuai.
+Dataframe Movie, Credits, dan Crew memiliki struktur yang belum rapi. Terdapat beberapa kolom yang bertipe data object JSON. Tipe data ini perlu diubah ke format yang lebih mudah untuk diolah, seperti tipe data list. Selain itu, pengecekan nilai null akan dilakukan dan diisi dengan nilai lain yang sesuai.
 
 ### Movies
 
 Berikut merupakan informasi dataset Movies.
 
-![alt text](image-4.png)
+![alt text](/images/image-4.png)
 
-Movies memiliki beberapa kolom yang tidak memberikan informasi apapun mengenai film terkait seperti 'belongs_to_collection', 'homepage', 'imdb_id', 'poster_path', 'status', 'title', 'video'. Oleh karena itu, kolom-kolom tersebut kita hapus. Selain itu, hapus beberapa baris yang bertipe data salah, karena akan membuat program error pada saat pengolahan data.
+Movies memiliki beberapa kolom yang tidak memberikan informasi apapun mengenai film terkait seperti 'belongs_to_collection', 'homepage', 'imdb_id', 'poster_path', 'status', 'title', 'video'. Oleh karena itu, kolom-kolom tersebut akan dihapus. Selain itu, hapus beberapa baris yang bertipe data salah, karena akan membuat program error pada saat pengolahan data.
 
 Kemudian, dapat dilihat bahwa dataset memiliki banyak kolom yang bertipe data object, seperti 'production_companies', 'production_countries', 'spoken_languages', dan  'genres'.
 
-![alt text](image-7.png)
+![alt text](/images/image-7.png)
 
 Ubah kolom-kolom tersebut menjadi list agar lebih mudah untuk diolah.
 
-![alt text](image-8.png)
+![alt text](/images/image-8.png)
 
 ###  Keywords
 
 Berikut merupakan informasi dataset Keywords.
 
-![alt text](image-5.png)
+![alt text](/images/image-5.png)
 
 Keywords memiliki kolom 'keywords' yang bertipe data object.
 
-![alt text](image-9.png)
+![alt text](/images/image-9.png)
 
 Sama seperti sebelumnya, lakukan konversi tipe data object menjadi list.
 
-![alt text](image-10.png)
+![alt text](/images/image-10.png)
 
 
 ###  Credits
 
 Berikut merupakan informasi dataset Credits.
 
-![alt text](image-6.png)
+![alt text](/images/image-6.png)
 
 Credits memiliki kolom 'cast' dan 'crew' yang bertipe data object.
 
-![alt text](image-11.png)
+![alt text](/images/image-11.png)
 
-Sama seperti sebelumnya, lakukan konversi tipe data object menjadi list. Selain itu, untuk kolom crew, kita hanya akan mengambil nama director-nya saja dan men-drop kolom crew itu sendiri.
+Sama seperti sebelumnya, lakukan konversi tipe data object menjadi list. Selain itu, kolom crew hanya akan diambil nama director-nya saja dan men-drop kolom crew itu sendiri.
 
-![alt text](image-12.png)
+![alt text](/images/image-12.png)
 
 ### Dataset Gabungan
 
-Setelah semua dataframe telah rapi, mari kita gabungkan menjadi satu dataframe.
+Setelah setiap dataframe telah rapi, gabungkan semua dataframe menjadi satu.
 
-![alt text](image-13.png)
+![alt text](/images/image-13.png)
 
-Mari kita cek informasi setiap kolom dataset dan apakah ada nilai null.
+Cek informasi setiap kolom dataset dan apakah ada nilai null.
 
-![alt text](image-14.png)
+![alt text](/images/image-14.png)
 
-Terdapat cukup banyak kolom yang memiliki nilai null.
-
-Untuk kolom dengan tipe string akan kita isi dengan string kosong. Sedangkan kolom dengan tipe numerik akan kita isi dengan nilai mean.
+Terdapat cukup banyak kolom yang memiliki nilai null. Nilai null ini akan diisi dengan nilai lain agar tidak kehilangan data. Kolom dengan tipe string akan diisi dengan string kosong. Sedangkan kolom dengan tipe numerik akan diisi dengan nilai mean.
 
 Berikut hasil dataframe setelah proses cleaning.
 
-![alt text](image-15.png)
+![alt text](/images/image-15.png)
 
-Sekarang, dataset kita telah bersih dari nilai null dan dapat dilanjutkan ke tahap visualisasi dan modeling.
+Sekarang, dataset telah bersih dari nilai null.
+
+Pada percobaan ini, sistem rekomendasi akan menggunakan pendekatan Content-based Filtering. Metadata items yang digunakan adalah genres, keywords, cast, dan director yang terkait dengan masing-masing film.
+
+![alt text](/images/image-19.png)
+
+Pertama, bersihkan data dengan mengubah semua string menjadi lower case dan menghapus spasi di setiap frasanya.
+
+![alt text](/images/image-20.png)
+
+Setelah itu, buat kolom baru dengan nama content_filter, yang merupakan string gabungan genres, keywords, cast, dan director.
+
+![alt text](/images/image-21.png)
+
+Sekarang, dataset telah bersih dan siap untuk dilakukan visualisasi dan modeling.
 
 ## Data Visualization
 
 ### Genre Movie Terbanyak
 
-Dari visualisasi dibawah, kita dapat melihat bahwa genre film dengan jumlah terbanyak adalah drama, diikuti oleh komedi dan aksi.
+Dari visualisasi dibawah, dapat dilihat bahwa genre film dengan jumlah terbanyak adalah drama, diikuti oleh komedi dan aksi.
 
-![alt text](image-16.png)
+![alt text](/images/image-16.png)
 
 ### Distribusi Film Berdasarkan Tanggal Rilis
 
 Berdasarkan visualisasi di bawah, dapat dilihat bahwa produksi film meningkat pada dekade 2000 hingga sekarang.
 
-![alt text](image-17.png)
+![alt text](/images/image-17.png)
 
 ### Word Cloud
 
 Berdasarkan word cloud dari plot film, dapat dilihat bahwa kata yang sering muncul adalah "find", "life", "love", "one" "family", dan "live".
 
-![alt text](image-18.png)
+![alt text](/images/image-18.png)
 
 ## Recommender System with Content Based Filtering
 
-Sekarang, saatnya kita membuat sistem rekomendasi dengan pendekatan Content-based Filtering. Kita akan menggunakan metadata items, seperti genres, keywords, cast, dan director yang terkait dengan masing-masing film.
-
-![alt text](image-19.png)
-
-Pertama, kita akan membersihkan data dengan mengubah semua string menjadi lower case dan menghapus spasi di setiap frasanya.
-
-![alt text](image-20.png)
-
-Setelah itu, kita buat kolom baru dengan nama content_filter, yang merupakan string gabungan genres, keywords, cast, dan director.
-
-![alt text](image-21.png)
-
-Berikutnya, kita akan melakukan vektorisasi content_filter tersebut dengan Count Vectorizer. Count Vectorizer akan menghitung frekuensi kemunculan kata dalam content_filter dan menghasilkan vektor yang mewakili jumlah kemunculan kata-kata tersebut.
+Sistem rekomendasi pada percobaan ini akan menggunakan Count Vectorizer. Count Vectorizer akan menghitung frekuensi kemunculan kata dalam dokumen dan menghasilkan vektor yang mewakili jumlah kemunculan kata-kata tersebut.
 
 Di bawah ini merupakan visualisasi dari Count Vectorizer (Shah *et al.*, 2020).
 
-![alt text](image-22.png)
+![alt text](/images/image-22.png)
 
 Berdasarkan matriks vektor hasil Count Vectorizer, jarak similaritas diantara setiap vektor akan dihitung dengan Cosine Similarity. 
 
@@ -207,53 +209,61 @@ Cosine similarity mengukur sudut kosinus antara dua vektor (Neuralis, 2023). Nil
 
 Di bawah ini merupakan visualisasi dari Cosine Similarity (Neuralis, 2023).
 
-![alt text](image-23.png)
+![alt text](/images/image-23.png)
 
+Setelah matriks similaritas didapatkan, buat fungsi find_recommendations untuk mendapatkan rekomendasi film. Fungsi tersebut akan menghitung jarak similaritas antara film yang diinputkan dengan film-film lainnya. Setelah itu, film-film dengan skor similaritas yang sama akan didapatkan dan diurutkan berdasarkan skor tertinggi. Kemudian, 10 besar film dengan skor similaritas tertinggi akan dikembalikan.
 
-Setelah kita mendapatkan matriks similaritas, buat fungsi find_recommendations untuk mendapatkan rekomendasi film. Fungsi tersebut akan menghitung jarak similaritas antara film yang diinputkan dengan film-film lainnya. Setelah itu, film-film dengan skor similaritas yang sama akan didapatkan dan diurutkan berdasarkan skor tertinggi. Kemudian, 10 besar film dengan skor similaritas tertinggi akan dikembalikan.
+Sebagai contoh, cari rekomendasi film yang mirip dengan film "Toy Story".
 
-Sebagai contoh, mari kita cari rekomendasi film yang mirip dengan film "Toy Story".
+![alt text](/images/image-24.png)
 
-![alt text](image-24.png)
-
-Dapat kita lihat bahwa sistem rekomendasi kita berhasil membuat rekomendasi film yang mirip dengan "Toy Story".
+Dapat dilihat bahwa sistem rekomendasi berhasil membuat rekomendasi film yang mirip dengan "Toy Story".
 
 ## Evaluation
 
-Untuk mengukur seberapa baik sistem rekomendasi kita bekerja. Kita akan menggunakan metrik precision. Metrik precision akan menghitung proporsi item yang direkomendasikan yang relevan dengan pengguna. 
+Untuk mengukur seberapa baik sistem rekomendasi bekerja. Metrik yang dapat digunakan adalah precision. Metrik precision akan menghitung proporsi item yang direkomendasikan yang relevan dengan pengguna. 
 
-Metrik precision ditunjukkan oleh formula berikut.
+Metrik precision pada sistem rekomendasi ditunjukkan oleh formula berikut.
 
-![alt text](image-26.png)
+![alt text](/images/image-26.png)
 
-- Jumlah item relevan kita tentukan sebagai jumlah film dengan genre yang mirip. 
-- Jumlah total item adalah jumlah film yang direkomendasikan oleh sistem kita.
+Jumlah item relevan adalah jumlah film dengan genre yang mirip. 
 
-Sebagai contoh, mari kita buat rekomendasi film berdasarkan film "Star Wars".
+Jumlah total item adalah jumlah film yang direkomendasikan oleh sistem.
 
-![alt text](image-25.png)
+Sebagai contoh, buat rekomendasi film berdasarkan film "Star Wars"
 
-Kita telah mendapatkan 10 rekomendasi film. Untuk mendapatkan jumlah film yang relevan, kita akan menghitung similaritas genre antara film yang dicari dengan film-film hasil rekomendasi.
+![alt text](/images/image-25.png)
 
-![alt text](image-27.png)
+10 rekomendasi film telah didapatkan. 
 
-![alt text](image-28.png)
+Untuk mendapatkan jumlah film yang relevan, hitung similaritas berdasarkan kolom genre antara movie_to_find dengan film-film hasil rekomendasi.
 
-Untuk menghitung similaritas genre antara satu film dengan film yang lain. Kita akan menggunakan jaccard similarity. Jackard similarity digunakan untuk mengukur tingkat kemiripan antara dua himpunan.
+![alt text](/images/image-27.png)
+
+![alt text](/images/image-28.png)
+
+Similaritas genre antara satu film dengan film yang lain akan dihitung dengan menggunakan jaccard similarity. Jackard similarity adalah metrik yang digunakan untuk mengukur tingkat kesamaan antara dua himpunan.
 
 Jackard similarity ditunjukkan oleh formula berikut.
 
-![alt text](image-29.png)
+![alt text](/images/image-29.png)
 
 Berikut merupakan hasil perhitungan jaccard similarity dari film yang ingin dicari dengan film-film hasil rekomendasi.
 
-![alt text](image-30.png)
+![alt text](/images/image-30.png)
 
-Kita akan tentukan film yang relevan adalah film dengan similaritas diatas 0.8. Setelah itu, jumlah dari film yang relevan akan kita bagi dengan jumlah film rekomendasi untuk mendapatkan precision.
+Misalkan ditentukan film yang relevan adalah film dengan similaritas diatas 0.8, sehingga dari tabel similaritas diatas didapatan ada 9 film yang relevan.
 
-![alt text](image-31.png)
+Untuk menghitung precision, jumlah dari film yang relevan akan dibagi dengan jumlah film rekomendasi.
 
-Berdasarkan perhitungan diatas, kita mendapatkan precision sebesar 90%. Hasil tersebut sudah cukup bagus untuk sebuah sistem rekomendasi.
+![alt text](/images/image-31.png)
+
+Berdasarkan perhitungan diatas, precision sebesar 90%. Hasil tersebut sudah cukup bagus untuk sebuah sistem rekomendasi.
+
+## Summary
+
+Berdasarkan percobaan-percobaan yang telah dilakukan, model sistem rekomendasi yang dibuat berhasil mendapatkan rekomendasi film-film yang terkait dengan film yang diinputkan. Rekomendasi didapatkan berdasarkan kemiripan genre, kata kunci, pemeran, dan sutradara. Model sistem rekomendasi berhasil mendapatkan presisi sebesar 90%.
 
 ## Referensi
 
